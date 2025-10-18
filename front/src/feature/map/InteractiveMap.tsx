@@ -77,9 +77,9 @@ function LocationMarker({
           </div>
           <button
             onClick={handleConfirm}
-            className="w-full px-5 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-serif text-sm rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-95"
+            className="w-full px-5 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-serif text-sm rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-[1.03] active:scale-95 focus:outline-none focus:ring-4 focus:ring-purple-400/50"
           >
-            ✨ ここにする！
+            ✨ ここにする!
           </button>
         </div>
       </Popup>

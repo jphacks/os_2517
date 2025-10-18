@@ -4,7 +4,7 @@ interface ConfirmButtonProps {
 }
 
 /**
- * グラデーション付きの確定ボタン - レスポンシブ対応
+ * グラデーション付きの確定ボタン - レスポンシブ対応 + フォーカス状態強化
  */
 export function ConfirmButton({ onClick, disabled }: ConfirmButtonProps) {
   return (
@@ -17,12 +17,14 @@ export function ConfirmButton({ onClick, disabled }: ConfirmButtonProps) {
                bg-gradient-to-r from-purple-500 to-pink-500 
                text-white rounded-lg sm:rounded-xl md:rounded-2xl
                shadow-lg shadow-purple-500/50
-               hover:shadow-xl hover:shadow-purple-500/70
+               hover:shadow-2xl hover:shadow-purple-500/70
                disabled:opacity-50 disabled:cursor-not-allowed
                transition-all duration-300
-               hover:scale-[1.02]
+               hover:scale-[1.03]
                disabled:hover:scale-100
-               disabled:hover:shadow-lg"
+               disabled:hover:shadow-lg
+               active:scale-[0.97]
+               focus:outline-none focus:ring-4 focus:ring-purple-400/60"
     >
       <span className="flex items-center justify-center gap-2">
         <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

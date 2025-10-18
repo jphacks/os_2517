@@ -177,7 +177,7 @@ export default function AlbumPage() {
             </h1>
             <button
               onClick={handleBackToHome}
-              className="px-2 sm:px-3 py-1 border border-slate-600 text-slate-800 font-serif text-xs hover:bg-slate-800 hover:text-white transition-colors duration-300 whitespace-nowrap"
+              className="px-2 sm:px-3 py-1 border border-slate-600 text-slate-800 font-serif text-xs hover:bg-slate-800 hover:text-white transition-all duration-300 whitespace-nowrap hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-slate-600 focus:ring-offset-2"
             >
               <span className="hidden sm:inline">新しい記憶を探す</span>
               <span className="sm:hidden">新規</span>
@@ -204,7 +204,7 @@ export default function AlbumPage() {
                 </p>
                 <button
                   onClick={handleBackToHome}
-                  className="px-4 sm:px-6 py-2 bg-slate-700 text-white font-serif text-xs sm:text-sm hover:bg-slate-800 transition-colors duration-300"
+                  className="px-4 sm:px-6 py-2 bg-slate-700 text-white font-serif text-xs sm:text-sm hover:bg-slate-800 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-slate-600/50"
                 >
                   記憶を探しに行く
                 </button>
@@ -356,7 +356,7 @@ export default function AlbumPage() {
         {images.length > 0 && (
           <button
             onClick={handleScrollToNext}
-            className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8 flex items-center gap-1.5 sm:gap-2 bg-slate-900/70 backdrop-blur-sm text-slate-200 px-3 sm:px-5 py-1.5 sm:py-2 rounded-sm text-[10px] sm:text-xs font-serif shadow-lg border border-slate-700/50 hover:bg-slate-800/80 hover:border-slate-600 transition-all duration-300 cursor-pointer active:scale-95"
+            className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8 flex items-center gap-1.5 sm:gap-2 bg-slate-900/70 backdrop-blur-sm text-slate-200 px-3 sm:px-5 py-1.5 sm:py-2 rounded-sm text-[10px] sm:text-xs font-serif shadow-lg border border-slate-700/50 hover:bg-slate-800/80 hover:border-slate-600 hover:shadow-xl transition-all duration-300 cursor-pointer active:scale-95 focus:outline-none focus:ring-2 focus:ring-slate-500"
           >
             <svg className="w-2.5 sm:w-3 h-2.5 sm:h-3 animate-bounce-horizontal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
@@ -380,7 +380,7 @@ export default function AlbumPage() {
             {/* 閉じるボタン */}
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-slate-900/80 backdrop-blur-sm border border-slate-600 text-white hover:bg-slate-800 transition-colors duration-300 rounded-full shadow-lg text-sm sm:text-base"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-slate-900/80 backdrop-blur-sm border border-slate-600 text-white hover:bg-slate-800 hover:border-slate-500 hover:shadow-xl transition-all duration-300 rounded-full shadow-lg text-sm sm:text-base hover:scale-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-slate-500/50"
             >
               ✕
             </button>
@@ -419,7 +419,7 @@ export default function AlbumPage() {
                 
                 <button
                   onClick={() => handleDelete(selectedImage.id)}
-                  className="px-4 sm:px-6 py-1.5 sm:py-2 bg-red-900/30 border border-red-700 text-red-400 font-serif text-xs sm:text-sm hover:bg-red-900/50 hover:text-red-300 transition-colors duration-300 rounded whitespace-nowrap"
+                  className="px-4 sm:px-6 py-1.5 sm:py-2 bg-red-900/30 border border-red-700 text-red-400 font-serif text-xs sm:text-sm hover:bg-red-900/50 hover:text-red-300 hover:border-red-600 hover:shadow-lg hover:shadow-red-900/50 transition-all duration-300 rounded whitespace-nowrap hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-red-700/50"
                 >
                   記憶を消去
                 </button>
