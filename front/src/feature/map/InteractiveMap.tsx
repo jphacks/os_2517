@@ -68,12 +68,18 @@ function LocationMarker({
   return position === null ? null : (
     <Marker position={position} icon={icon} ref={markerRef}>
       <Popup autoClose={false} closeOnClick={true}>
-        <div className="p-1">
+        <div className="p-2">
+          <div className="mb-2 text-center">
+            <p className="text-xs text-slate-700 font-serif mb-1">この場所の記憶を探しますか?</p>
+            <p className="text-[10px] text-slate-500">
+              {position.lat.toFixed(4)}°N, {position.lng.toFixed(4)}°E
+            </p>
+          </div>
           <button
             onClick={handleConfirm}
-            className="w-full px-6 py-2.5 bg-gradient-to-r from-slate-700 to-slate-900 text-white font-serif text-sm rounded-sm hover:from-slate-800 hover:to-black transition-all duration-300 shadow-md hover:shadow-lg border border-slate-600"
+            className="w-full px-5 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-serif text-sm rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-[1.02] active:scale-95"
           >
-            ここにする！
+            ✨ ここにする！
           </button>
         </div>
       </Popup>
@@ -116,7 +122,7 @@ export default function InteractiveMap() {
 
   return (
     <div className="w-full">
-      <div className="w-full h-[600px] rounded-lg overflow-hidden shadow-lg">
+      <div className="w-full rounded-lg overflow-hidden shadow-lg" style={{ height: 'calc(100vh - 280px)', minHeight: '400px', maxHeight: '700px' }}>
         <MapContainer
           center={savedPosition ? [savedPosition.lat, savedPosition.lng] : defaultCenter}
           zoom={13}

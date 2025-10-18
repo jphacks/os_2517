@@ -5,16 +5,38 @@ import { useRouter } from 'next/navigation';
 import { getAllImages, deleteImage } from '@/lib/album';
 import { GeneratedImage } from '@/types';
 
+interface ImageDimensions {
+  width: number;
+  height: number;
+}
+
 export default function AlbumPage() {
   const [images, setImages] = useState<GeneratedImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<GeneratedImage | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [imageDimensions, setImageDimensions] = useState<Map<string, ImageDimensions>>(new Map());
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   useEffect(() => {
     loadImages();
   }, []);
+
+  // 画像の寸法を取得
+  useEffect(() => {
+    images.forEach((image) => {
+      if (!imageDimensions.has(image.id)) {
+        const img = new Image();
+        img.onload = () => {
+          setImageDimensions(prev => new Map(prev).set(image.id, {
+            width: img.naturalWidth,
+            height: img.naturalHeight
+          }));
+        };
+        img.src = image.base64;
+      }
+    });
+  }, [images, imageDimensions]);
 
   // PC用ホイール操作を横スクロールに変換
   useEffect(() => {
@@ -71,18 +93,52 @@ export default function AlbumPage() {
     const container = scrollContainerRef.current;
     if (!container) return;
     
-    // 画面幅に応じた額縁幅を計算
-    // モバイル(~640px): 300px, タブレット以上: 450px
-    const screenWidth = window.innerWidth;
-    const frameWidth = screenWidth < 640 ? 300 : 450;
-    
-    // 額縁幅 + ギャップ(額縁幅の90%)
-    const scrollAmount = frameWidth * 1.9;
+    // 次の額縁の位置を計算（現在の位置 + コンテナ幅の80%程度）
+    const scrollAmount = container.clientWidth * 0.8;
     
     container.scrollBy({
       left: scrollAmount,
       behavior: 'smooth'
     });
+  };
+
+  // 画像のアスペクト比に基づいて額縁サイズを計算
+  const getFrameSize = (imageId: string) => {
+    const dims = imageDimensions.get(imageId);
+    if (!dims) {
+      // デフォルトサイズ（正方形）
+      return { width: 'clamp(300px, 80vw, 450px)', height: 'clamp(300px, 80vw, 450px)' };
+    }
+
+    const aspectRatio = dims.width / dims.height;
+    const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 640;
+    const isMobile = screenWidth < 640;
+    
+    // 基準となる最大高さ（ピクセル値）
+    const maxHeightPx = isMobile ? (typeof window !== 'undefined' ? window.innerHeight - 200 : 500) : (typeof window !== 'undefined' ? window.innerHeight - 160 : 600);
+    
+    if (aspectRatio > 1) {
+      // 横長の画像
+      const width = Math.min(maxHeightPx * aspectRatio, isMobile ? 350 : 550);
+      return {
+        width: `${width}px`,
+        height: `${width / aspectRatio}px`
+      };
+    } else if (aspectRatio < 1) {
+      // 縦長の画像
+      const height = Math.min(maxHeightPx, 700);
+      return {
+        width: `${height * aspectRatio}px`,
+        height: `${height}px`
+      };
+    } else {
+      // 正方形
+      const size = Math.min(maxHeightPx, isMobile ? 350 : 450);
+      return {
+        width: `${size}px`,
+        height: `${size}px`
+      };
+    }
   };
 
   if (isLoading) {
@@ -173,40 +229,43 @@ export default function AlbumPage() {
               paddingRight: 'clamp(calc(50vw - 150px), calc(50vw - 150px), calc(50vw - 225px))',
               gap: 'clamp(calc(300px * 0.8), 10vw, calc(450px * 0.9))'
             }}>
-              {images.map((image, index) => (
-                <div
-                  key={image.id}
-                  onClick={() => setSelectedImage(image)}
-                  className="group cursor-pointer flex-shrink-0 animate-fade-in-gallery relative scroll-snap-align-center"
-                  style={{ 
-                    animationDelay: `${index * 0.1}s`,
-                    scrollSnapAlign: 'center'
-                  }}
-                >
-                  {/* スポットライト効果 */}
-                  <div className="absolute -top-16 sm:-top-24 left-1/2 -translate-x-1/2 w-48 sm:w-64 h-32 sm:h-40 bg-gradient-radial from-white/12 via-white/4 to-transparent blur-3xl pointer-events-none"></div>
-                  
-                  {/* 額縁 - レスポンシブサイズ */}
-                  <div 
-                    className="relative p-4 sm:p-6 transition-all duration-500 transform group-hover:scale-[1.01]"
+              {images.map((image, index) => {
+                const frameSize = getFrameSize(image.id);
+                
+                return (
+                  <div
+                    key={image.id}
+                    onClick={() => setSelectedImage(image)}
+                    className="group cursor-pointer flex-shrink-0 animate-fade-in-gallery relative scroll-snap-align-center"
                     style={{ 
-                      width: 'clamp(300px, 80vw, 450px)',
-                      height: 'clamp(calc(100vh - 200px), 70vh, calc(100vh - 160px))',
-                      maxHeight: '700px',
-                      background: 'linear-gradient(135deg, #d4a843 0%, #f5e6c8 20%, #d4a843 40%, #c49a3a 60%, #f5e6c8 80%, #d4a843 100%)',
-                      boxShadow: `
-                        0 25px 70px rgba(0,0,0,0.45),
-                        0 0 0 2px rgba(0,0,0,0.1),
-                        inset 0 0 0 3px #8b7355,
-                        inset 0 0 0 6px #d4a843,
-                        inset 0 0 0 9px #f5e6c8,
-                        inset 0 0 0 12px #c49a3a,
-                        inset 0 2px 3px rgba(255,255,255,0.35),
-                        inset 0 -2px 3px rgba(0,0,0,0.25)
-                      `,
-                      borderRadius: '2px'
+                      animationDelay: `${index * 0.1}s`,
+                      scrollSnapAlign: 'center'
                     }}
                   >
+                    {/* スポットライト効果 */}
+                    <div className="absolute -top-16 sm:-top-24 left-1/2 -translate-x-1/2 w-48 sm:w-64 h-32 sm:h-40 bg-gradient-radial from-white/12 via-white/4 to-transparent blur-3xl pointer-events-none"></div>
+                    
+                    {/* 額縁 - 画像のアスペクト比に応じた可変サイズ */}
+                    <div 
+                      className="relative p-4 sm:p-6 transition-all duration-500 transform group-hover:scale-[1.01]"
+                      style={{ 
+                        width: frameSize.width,
+                        height: frameSize.height,
+                        maxHeight: '700px',
+                        background: 'linear-gradient(135deg, #d4a843 0%, #f5e6c8 20%, #d4a843 40%, #c49a3a 60%, #f5e6c8 80%, #d4a843 100%)',
+                        boxShadow: `
+                          0 25px 70px rgba(0,0,0,0.45),
+                          0 0 0 2px rgba(0,0,0,0.1),
+                          inset 0 0 0 3px #8b7355,
+                          inset 0 0 0 6px #d4a843,
+                          inset 0 0 0 9px #f5e6c8,
+                          inset 0 0 0 12px #c49a3a,
+                          inset 0 2px 3px rgba(255,255,255,0.35),
+                          inset 0 -2px 3px rgba(0,0,0,0.25)
+                        `,
+                        borderRadius: '2px'
+                      }}
+                    >
                     {/* 額縁の装飾パターン */}
                     <div className="absolute inset-0 opacity-25 pointer-events-none"
                          style={{
@@ -287,7 +346,8 @@ export default function AlbumPage() {
                     </div>
                   </div>
                 </div>
-              ))}
+              );
+              })}
             </div>
           </div>
         )}
