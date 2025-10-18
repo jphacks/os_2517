@@ -70,16 +70,16 @@ function LocationMarker({
       <Popup autoClose={false} closeOnClick={true}>
         <div className="p-2">
           <div className="mb-2 text-center">
-            <p className="text-xs text-slate-700 font-serif mb-1">この場所の記憶を探しますか?</p>
+            <p className="text-xs text-slate-700 mb-1">この場所でよろしいですか?</p>
             <p className="text-[10px] text-slate-500">
               {position.lat.toFixed(4)}°N, {position.lng.toFixed(4)}°E
             </p>
           </div>
           <button
             onClick={handleConfirm}
-            className="w-full px-5 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-serif text-sm rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-[1.03] active:scale-95 focus:outline-none focus:ring-4 focus:ring-purple-400/50"
+            className="w-full px-5 py-2.5 bg-sky-500 text-white text-sm rounded-lg hover:bg-sky-600 transition-all duration-300 shadow-lg shadow-sky-500/30 hover:shadow-sky-500/40 hover:scale-[1.03] active:scale-95 focus:outline-none focus:ring-4 focus:ring-sky-400/50"
           >
-            ✨ ここにする!
+            ✨ ここに決めた
           </button>
         </div>
       </Popup>
@@ -91,13 +91,16 @@ const STORAGE_KEY = 'map_marker_position';
 
 export default function InteractiveMap() {
   const [savedPosition, setSavedPosition] = useState<MarkerPosition | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   
-  // デフォルトの中心位置（東京）
+  // デフォルトの中心位置(東京)
   const defaultCenter: [number, number] = [35.6812405, 139.7671248];
 
-  // 初回ロード時にセッションストレージから位置を読み込む
+  // クライアントサイドでマウント後にsessionStorageを読み込む
   useEffect(() => {
+    setIsMounted(true);
+    
     const storedPosition = sessionStorage.getItem(STORAGE_KEY);
     if (storedPosition) {
       try {
@@ -115,7 +118,9 @@ export default function InteractiveMap() {
 
   const handleConfirm = (position: MarkerPosition) => {
     // セッションストレージに保存
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(position));
+    if (isMounted) {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(position));
+    }
     setSavedPosition(position);
     console.log('位置を保存しました:', position);
   };
