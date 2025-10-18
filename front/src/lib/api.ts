@@ -9,16 +9,18 @@ import { Position } from '@/types';
  */
 export async function generateImage(
   position: Position,
-  datetime: string
+  datetime: Date
 ): Promise<string> {
   // TODO: 実際のAPIエンドポイントに置き換える
   // const response = await fetch('YOUR_API_ENDPOINT', {
   //   method: 'POST',
   //   headers: { 'Content-Type': 'application/json' },
   //   body: JSON.stringify({
-  //     latitude: position.lat,
-  //     longitude: position.lng,
-  //     datetime: datetime,
+  //     location: {
+  //       lat: position.lat,
+  //       lon: position.lng,
+  //     },
+  //     date: datetime,
   //   }),
   // });
   // const data = await response.json();
@@ -37,7 +39,7 @@ export async function generateImage(
 /**
  * モック用のBase64画像を生成（ランダムな縦横比）
  */
-function generateMockBase64Image(position: Position, datetime: string): string {
+function generateMockBase64Image(position: Position, datetime: Date): string {
   // ランダムな縦横比を生成
   const aspectRatios = [
     { width: 800, height: 600 },   // 4:3 横長
