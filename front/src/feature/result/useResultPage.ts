@@ -46,7 +46,7 @@ export function useResultPage() {
       };
 
       await saveToAlbum(image);
-      alert('アルバムに保存しました！');
+      alert('ギャラリーに飾りました!');
       
       router.push('/album');
     } catch (error) {

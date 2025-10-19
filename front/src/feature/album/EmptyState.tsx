@@ -3,7 +3,7 @@ interface EmptyStateProps {
 }
 
 /**
- * アルバムが空の状態の表示
+ * ギャラリーが空の状態の表示
  */
 export function EmptyState({ onBackToHome }: EmptyStateProps) {
   return (
@@ -17,7 +17,7 @@ export function EmptyState({ onBackToHome }: EmptyStateProps) {
             まだ記憶が保存されていません
           </h2>
           <p className="text-amber-700 font-serif text-xs sm:text-sm mb-4">
-            過去の情景を探しに出かけましょう
+            過去の風景を探しに出かけましょう
           </p>
           <button
             onClick={onBackToHome}

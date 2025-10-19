@@ -14,7 +14,7 @@ export function ScrollHint({ onClick }: ScrollHintProps) {
       <svg className="w-2.5 sm:w-3 h-2.5 sm:h-3 animate-bounce-horizontal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
       </svg>
-      <span className="tracking-wide hidden sm:inline">横にスクロールして記憶を巡る</span>
+      <span className="tracking-wide hidden sm:inline">横にスクロールしてギャラリーを巡る</span>
       <span className="tracking-wide sm:hidden">スクロール →</span>
     </button>
   );

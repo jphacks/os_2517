@@ -13,10 +13,10 @@ export function MapHeader() {
         </div>
       </div>
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 text-sky-900 drop-shadow-sm">
-        記憶の座標
+        あれは何処だろう？
       </h1>
       <p className="text-sm sm:text-base text-sky-700 leading-relaxed">
-        あの日の風景が、地図の上で待っています
+        あの頃の思い出の場所を、地図上で選んでください
       </p>
     </div>
   );

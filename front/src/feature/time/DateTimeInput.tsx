@@ -10,7 +10,7 @@ export function DateTimeInput({ value, onChange }: DateTimeInputProps) {
   return (
     <div className="space-y-2 sm:space-y-3">
       <label htmlFor="datetime" className="block text-[11px] sm:text-xs md:text-sm font-medium text-sky-700">
-        いつの記憶を呼び覚ましますか
+        いつの風景を復元しますか
       </label>
       <div className="relative">
         <input
@@ -43,7 +43,7 @@ export function DateTimeInput({ value, onChange }: DateTimeInputProps) {
         <div className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent"></div>
       </div>
       <p className="text-[10px] sm:text-xs text-sky-600 mt-1">
-        時の流れから、一瞬を切り取ります
+        時の中から、あの風景をすくい上げましょう
       </p>
     </div>
   );

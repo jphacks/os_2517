@@ -10,10 +10,10 @@ export function TimePageHeader() {
         </svg>
       </div>
       <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-sky-900 mb-1.5 sm:mb-2">
-        時の選択
+        あの日は何時だっけ？
       </h1>
       <p className="text-sky-700 text-[11px] sm:text-xs md:text-sm leading-relaxed px-2">
-        記憶の扉を開く、その瞬間を選んでください
+        あの瞬間の日時を選んでください
       </p>
     </div>
   );

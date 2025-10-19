@@ -146,10 +146,10 @@ export function SkeletonClockLoader() {
         {/* テキスト */}
         <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 text-center w-full">
           <p className="text-sky-900 text-xl font-bold mb-2 animate-pulse">
-            記憶を紡いでいます...
+            過去へ遡ります...
           </p>
           <p className="text-sky-700 text-sm">
-            時の歯車が、失われた風景を描き出す
+            思い出の風景まで、もうすぐです
           </p>
         </div>
       </div>

@@ -20,7 +20,7 @@ export function ImageDisplay({ imageData }: ImageDisplayProps) {
       </div>
       {/* 時間の刻印 */}
       <div className="mt-3 sm:mt-4 text-center text-sky-700 text-xs sm:text-sm md:text-base flex-shrink-0">
-        <p>時間の隙間から見つけた景色</p>
+        <p>あなたの思い出から再現された景色</p>
       </div>
     </div>
   );
