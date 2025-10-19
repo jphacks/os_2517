@@ -67,7 +67,7 @@ export function useResultPage() {
   // ホームに戻る
   const handleBackToHome = () => {
     sessionStorage.removeItem('generated_image');
-    router.push('/map');
+    router.push('/');
   };
 
   return {
