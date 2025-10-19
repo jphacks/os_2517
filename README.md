@@ -1,4 +1,4 @@
-#あの頃を思い出そう
+## Emo
 
 [![IMAGE ALT TEXT HERE](https://jphacks.com/wp-content/uploads/2025/05/JPHACKS2025_ogp.jpg)](https://www.youtube.com/watch?v=lA9EluZugD8)
 
@@ -15,9 +15,9 @@
 「当時そこにいた自分が見ていた景色」を再現することができます。
 ### 製品説明（具体的な製品の説明）
 本アプリケーションは、地図座標（緯度経度）と日付を入力すると
-1️⃣ Google Street Viewから現地画像を取得し、
-2️⃣ Visual Crossing Weather APIで当日の天気を取得し、
-3️⃣ OpenAIの画像生成モデルで、天気に合わせたリアルな画像を生成する
+1️ Google Street Viewから現地画像を取得し、
+2️ Visual Crossing Weather APIで当日の天気を取得し、
+3️ OpenAIの画像生成モデルで、天気に合わせたリアルな画像を生成する
 Webサービスです。
 
 フロントエンド（Next.js）とバックエンド（Django REST Framework）を連携し、
@@ -43,8 +43,7 @@ AIの画像生成の制度を上げる
 
 APIのエラーハンドリングを行い、フォールバック生成でも「雰囲気を壊さない」よう工夫
 
-Next.jsとDjangoをREST APIで連携し、スムーズなデータフローを実現
-* 
+ 
 
 ## 開発技術
 ### 活用した技術
@@ -80,5 +79,5 @@ Django REST Framework（バックエンド）
 
 ### 独自技術
 #### ハッカソンで開発した独自機能・技術
-* 独自で開発したものの内容をこちらに記載してください
-* 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
+* 2種類のAPIから取得したデータを組み合わせ、AIにより自動的に合成処理を行う仕組みを実装
+* 特に力を入れた部分は、バックエンドのviews.pyです
