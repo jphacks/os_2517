@@ -156,3 +156,56 @@ def generate_ai_image(request):
         return Response({"error": "AI image generation failed"}, status=500)
 
     return HttpResponse(ai_image_bytes, content_type="image/png")
+
+@api_view(['POST'])
+def generate_scene(request):
+    """
+    一站式エンドポイント：
+    入力: lat, lon, date
+    出力: AI合成済みのストリートビュー画像
+    """
+    lat = request.data.get('lat')
+    lon = request.data.get('lon')
+    date = request.data.get('date')
+
+    if not lat or not lon or not date:
+        return Response({"error": "lat, lon, and date are required"}, status=400)
+
+    # ===== 1. 天気情報を取得 =====
+    weather_data = get_weather_data(lat, lon, date)
+    if not weather_data:
+        return Response({"error": "Failed to fetch weather data"}, status=500)
+
+    # ===== 2. Street View画像を取得 =====
+    image_bytes = get_street_view_image(lat, lon)
+    if not image_bytes:
+        return Response({"error": "Failed to fetch street view image"}, status=500)
+
+    # ===== 3. AI合成用プロンプトを生成 =====
+    prompt = f"""
+このStreet View画像をもとに、以下の天気条件に合わせて合成加工してください。
+天気: {weather_data['conditions']}
+気温: {weather_data['temp']}°C
+湿度: {weather_data['humidity']}%
+風速: {weather_data['windspeed']} km/h
+"""
+
+    # ===== 4. OpenAI APIで画像生成 =====
+    ai_image_bytes = generate_ai_image_backend(image_bytes, prompt)
+    if not ai_image_bytes:
+        return Response({"error": "AI image generation failed"}, status=500)
+
+    # ===== 5. 結果を返す =====
+    # ★Hackathon用途なら、JSONでweather情報+画像Base64を返すのが便利
+    ai_image_b64 = base64.b64encode(ai_image_bytes).decode("utf-8")
+    result = {
+        "id": str(uuid.uuid4()),  # 生成唯一ID
+        "base64": ai_image_b64,   # 图片内容
+        "position": {             # 经纬度
+            "lat": float(lat),
+            "lon": float(lon)
+        },
+        "date": date              # 日期
+    }
+
+    return Response(result)
