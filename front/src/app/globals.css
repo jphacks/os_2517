@@ -1,15 +1,89 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+/* ============================================
+   アニメーション定義（統一版）
+   ============================================ */
+
+/* フェードイン - 基本 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* スライドアップ - 下から上へ */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* フェードイン - ギャラリー用（横方向） */
+@keyframes fadeInGallery {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* バウンス - 横方向 */
+@keyframes bounceHorizontal {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+}
+
+/* アニメーションクラス */
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.animate-fade-in-gallery {
+  animation: fadeInGallery 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-bounce-horizontal {
+  animation: bounceHorizontal 2s infinite;
+}
+
+/* スクロールバー非表示 */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================
+   テーマカラー
+   ============================================ */
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
