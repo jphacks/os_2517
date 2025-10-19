@@ -33,7 +33,7 @@ export default function HomePage() {
             </h1>
             
             <p className="text-lg sm:text-xl md:text-2xl text-sky-700 leading-relaxed max-w-2xl mx-auto px-4">
-              時を遡り、失われた風景を取り戻す
+              時を遡り、記憶に隠された風景を取り戻す
             </p>
             
             <p className="text-sm sm:text-base text-sky-600/80 max-w-xl mx-auto px-4">
