@@ -63,7 +63,7 @@ export function ImageModal({ image, onClose, onDelete }: ImageModalProps) {
               onClick={() => onDelete(image.id)}
               className="px-4 sm:px-6 py-1.5 sm:py-2 bg-red-900/30 border border-red-700 text-red-400 font-serif text-xs sm:text-sm hover:bg-red-900/50 hover:text-red-300 hover:border-red-600 hover:shadow-lg hover:shadow-red-900/50 transition-all duration-300 rounded whitespace-nowrap hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-red-700/50"
             >
-              この思い出を取り外す
+              取り外す
             </button>
           </div>
         </div>

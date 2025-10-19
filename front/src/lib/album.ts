@@ -54,8 +54,12 @@ export async function getAllImages(): Promise<GeneratedImage[]> {
 
     request.onsuccess = () => {
       const images = request.result as GeneratedImage[];
-      // 新しい順にソート
-      images.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      // 新しい順にソート（createdAtまたはdatetimeでソート）
+      images.sort((a, b) => {
+        const timeA = a.createdAt ? new Date(a.createdAt).getTime() : new Date(a.datetime).getTime();
+        const timeB = b.createdAt ? new Date(b.createdAt).getTime() : new Date(b.datetime).getTime();
+        return timeB - timeA;
+      });
       resolve(images);
     };
     request.onerror = () => reject(request.error);

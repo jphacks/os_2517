@@ -21,6 +21,6 @@ export interface GeneratedImage {
   id: string;
   base64: string;
   position: Position;
-  datetime: string;
-  createdAt: string;
+  datetime: string; // ユーザーが選択した「あの日の日時」
+  createdAt?: string; // 保存した日時（ソート用、表示には使用しない）
 }
